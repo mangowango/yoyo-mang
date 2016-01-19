@@ -1,59 +1,80 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+import random
+import time
+import smtplib
 
-# C extensions
-*.so
 
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
+print('Hi, friend! What\'s your name?')
+name=input()
+print('Hi, ' + name + '! Pleased to meetcha!')
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+time.sleep(1)
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+print('Wanna play powerball? Type "YES" or "NO"...or some variation therein!')
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*,cover
-.hypothesis/
+time.sleep(1)
 
-# Translations
-*.mo
-*.pot
+answer= input()
+lower_case_answer = answer.lower()
 
-# Django stuff:
-*.log
 
-# Sphinx documentation
-docs/_build/
+potential_answers = {'yes', 'si', 'oui', \
+    'ya', 'yup', 'sure', 'yeah', 'yah','yas', 'yesh', 'ye', 'yee','yash'}
 
-# PyBuilder
-target/
+if lower_case_answer in potential_answers:
+    print('Great!....')
+
+    time.sleep(2)
+
+    powerball_range = range(1,26)
+    powerball = random.choice(powerball_range)
+    
+    for numbers in range(1,5):
+        index = sorted(random.sample(range(1,70),5))  
+    winning_numbers = ('Your numbers are: ' + str(index[0])+ ', ' + str(index[1])+ \
+          ', ' + str(index[2])+ ', ' + str(index[3]) \
+          + ', ' + str(index[4])+ '; Powerball: ' + str(powerball))
+
+    print(winning_numbers)
+
+    time.sleep(2)
+    
+    print('Thanks for playing!...')
+
+    time.sleep(2)
+
+    print('Would you like me to email you those numbers?')
+
+    email_answer=input()
+    lower_email_answer = email_answer.lower()
+
+    if lower_email_answer in potential_answers:
+        print('Great!....')
+
+        time.sleep(2)
+
+        print('What\'s your email address?') #need to turn on access to less secure apps via: "https://www.google.com/settings/security/lesssecureapps"
+
+        email_address = input()
+
+        time.sleep(2)
+
+        print('Please wait while I send your numbers!')
+
+        time.sleep(1)
+        
+        conn = smtplib.SMTP('smtp.gmail.com', 587)
+        type(conn)
+        conn
+        conn.ehlo()
+        conn.starttls()
+        conn.login('joseph.e.sutkowski@gmail.com', 'xyz')
+        conn.sendmail('joseph.e.sutkowski@gmail.com', email_address,'Subject: Winning Powerball \
+    Numbers\n\nDear ' + name + ', \n\n' + winning_numbers + '\n\nBest, \n\njojo')
+
+        time.sleep(1)
+
+        print('Sent!')
+    else:
+        print('Works for me!')    
+else:
+    print('Maybe some other time!')
